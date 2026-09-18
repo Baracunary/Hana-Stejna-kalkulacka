@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO (klient): doplnit finální doménu
+# Sitemap: https://www.example.cz/sitemap.xml

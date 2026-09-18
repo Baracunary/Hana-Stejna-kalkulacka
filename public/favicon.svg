@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="HS">
+  <rect width="64" height="64" rx="14" fill="#b1004d" />
+  <text
+    x="32"
+    y="43"
+    text-anchor="middle"
+    font-family="Figtree, Helvetica, Arial, sans-serif"
+    font-size="28"
+    font-weight="800"
+    fill="#ffffff"
+    letter-spacing="-1"
+  >HS</text>
+</svg>

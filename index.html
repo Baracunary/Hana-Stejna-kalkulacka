@@ -1,0 +1,1282 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Kolik vám banka maximálně půjčí? Spočítejte si svůj hypoteční limit</title>
+    <meta
+      name="description"
+      content="Zjistěte, kolik vám banka může aktuálně maximálně půjčit. Vyplňte kalkulačku a do 48 hodin dostanete informace o svém maximálním možném hypotečním financování."
+    />
+    <meta name="robots" content="index, follow" />
+    <!-- TODO: doplnit finální doménu a odkomentovat -->
+    <!-- <link rel="canonical" href="https://www.example.cz/" /> -->
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:title" content="Kolik vám banka maximálně půjčí?" />
+    <meta
+      property="og:description"
+      content="Spočítejte si svůj maximální hypoteční limit podle vaší aktuální situace. Informace o výsledku do 48 hodin."
+    />
+    <!-- TODO: doplnit OG obrázek 1200×630 do /public/img/og-image.jpg -->
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Kritické styly nad ohybem — než doběhne plný stylesheet -->
+    <style>
+      body {
+        background: #f2f0ed;
+        color: #1a1614;
+        font-family: Figtree, ui-sans-serif, system-ui, sans-serif;
+        margin: 0;
+      }
+      [hidden] {
+        display: none !important;
+      }
+    </style>
+
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+
+  <body>
+    <a
+      href="#hlavni-obsah"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-white"
+    >
+      Přeskočit na hlavní obsah
+    </a>
+
+    <!-- ===================== HLAVIČKA ===================== -->
+    <header class="sticky top-0 z-30 border-b border-hairline/60 bg-background/90 backdrop-blur-sm">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
+        <a href="#hero" class="flex min-w-0 items-center gap-2.5">
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary text-sm font-extrabold text-white">
+            HS
+          </span>
+          <span class="min-w-0 leading-tight">
+            <span class="block truncate text-[0.9375rem] font-bold">Hana-Marie Stejná</span>
+            <span class="block truncate text-xs text-muted">Hypoteční financování</span>
+          </span>
+        </a>
+
+        <a
+          href="tel:+420774431977"
+          class="inline-flex shrink-0 items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-bold text-primary hover:bg-primary-tint"
+          aria-label="Zavolat na číslo +420 774 431 977"
+        >
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1L6.6 10.8z"
+            />
+          </svg>
+          <span class="hidden sm:inline">774 431 977</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="hlavni-obsah">
+      <!-- ===================== HERO ===================== -->
+      <section id="hero" class="relative overflow-hidden">
+        <!-- Decentní vrstvené pozadí místo dekorací -->
+        <div
+          class="pointer-events-none absolute inset-0 -z-10"
+          aria-hidden="true"
+          style="
+            background:
+              radial-gradient(60rem 30rem at 85% -10%, rgb(177 0 77 / 0.07), transparent 60%),
+              radial-gradient(40rem 24rem at 5% 110%, rgb(26 22 20 / 0.05), transparent 60%);
+          "
+        ></div>
+
+        <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:px-6 md:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-24">
+          <div class="min-w-0">
+            <p class="eyebrow">Hypoteční kalkulačka</p>
+
+            <h1 class="mt-3 text-[2rem] font-extrabold leading-[1.1] sm:text-[2.5rem] lg:text-[3.25rem]">
+              Zjistěte, kolik vám banka maximálně půjčí.
+            </h1>
+
+            <p class="mt-4 max-w-xl text-lg leading-relaxed text-charcoal">
+              Spočítejte si svůj maximální hypoteční limit podle vaší aktuální situace.
+            </p>
+
+            <div class="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <a href="#kalkulacka" data-cta-kalkulacka class="btn btn-primary btn-lg w-full sm:w-auto">
+                Spočítat můj limit
+                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </a>
+              <p class="text-sm text-muted sm:max-w-[16rem]">Zabere zhruba 2 minuty. Zdarma a nezávazně.</p>
+            </div>
+
+            <p class="mt-7 max-w-xl text-[0.9375rem] leading-relaxed text-charcoal">
+              Zjistěte své možnosti financování před koupí nemovitosti, rekonstrukcí nebo výstavbou.
+            </p>
+
+            <ul class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-charcoal">
+              <li class="flex items-center gap-2">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-success">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                Bez registrace
+              </li>
+              <li class="flex items-center gap-2">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-success">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                Bez schůzky
+              </li>
+              <li class="flex items-center gap-2">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-success">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                Bez závazku
+              </li>
+            </ul>
+          </div>
+
+          <!-- Hero vizuál: dům + zamaskovaná částka limitu.
+               Vědomě NEukazuje konkrétní číslo — otázka "kolik?" je celé sdělení webu. -->
+          <div class="relative mx-auto w-full max-w-md lg:max-w-none">
+            <div class="karta relative overflow-hidden p-6 md:p-8">
+              <svg
+                class="mx-auto block w-full max-w-[19rem] text-primary"
+                viewBox="0 0 320 180"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                role="img"
+                aria-label="Ilustrace moderního domu"
+              >
+                <!-- terén -->
+                <path d="M8 168h304" class="text-hairline" stroke="currentColor" opacity="0.5" />
+                <!-- hlavní hmota -->
+                <path d="M48 168V92l72-44 72 44v76" />
+                <!-- střecha -->
+                <path d="M36 98 120 46l84 52" stroke-width="2.5" />
+                <!-- přístavba -->
+                <path d="M192 168v-52h76v52" />
+                <path d="M184 120h84" />
+                <!-- okna -->
+                <rect x="72" y="110" width="30" height="26" rx="2" fill="currentColor" opacity="0.12" />
+                <rect x="138" y="110" width="30" height="26" rx="2" fill="currentColor" opacity="0.12" />
+                <rect x="212" y="132" width="36" height="36" rx="2" fill="currentColor" opacity="0.08" />
+                <!-- dveře -->
+                <path d="M104 168v-22a16 16 0 0 1 32 0v22" />
+              </svg>
+
+              <div class="mt-6 rounded-xl bg-background p-5 text-center">
+                <p class="text-[0.8125rem] font-bold uppercase tracking-[0.08em] text-muted">
+                  Váš maximální hypoteční limit
+                </p>
+                <p class="mt-2 flex items-baseline justify-center gap-2" aria-hidden="true">
+                  <span class="text-hero-num font-extrabold leading-none tracking-tight text-primary">? ? ?</span>
+                  <span class="text-xl font-bold text-charcoal">Kč</span>
+                </p>
+                <p class="sr-only">Zatím neznámá částka — zjistíte ji vyplněním kalkulačky.</p>
+                <p class="mt-3 text-sm text-charcoal">
+                  Vyplňte kalkulačku a orientační rozsah uvidíte hned. Přesný výsledek dostanete do 48 hodin.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== KALKULAČKA ===================== -->
+      <section id="kalkulacka" class="scroll-mt-20 bg-ink py-12 md:py-20">
+        <div class="mx-auto max-w-2xl px-4 md:px-6">
+          <div class="mb-6 text-center">
+            <p class="text-[0.8125rem] font-bold uppercase tracking-[0.08em] text-white/50">Hypoteční kalkulačka</p>
+            <h2 class="mt-2 text-2xl font-extrabold text-white md:text-3xl">Spočítejte si svůj maximální limit</h2>
+          </div>
+
+          <div class="karta overflow-hidden p-5 md:p-7">
+            <!-- progres -->
+            <div
+              data-role="progres"
+              class="mb-6"
+              role="progressbar"
+              aria-valuemin="1"
+              aria-valuemax="6"
+              aria-valuenow="1"
+              aria-label="Průběh kalkulačky"
+            >
+              <p data-role="progres-text" class="mb-2 text-[0.8125rem] font-bold text-primary">Krok 1 z 6 · Co řešíte</p>
+              <div class="progres-pruh">
+                <div data-role="progres-vypln" class="progres-vypln" style="width: 4%"></div>
+              </div>
+            </div>
+
+            <!-- ---------- KROK 1 ---------- -->
+            <section data-krok="1" aria-label="Krok 1: Co právě řešíte">
+              <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">Co právě řešíte?</h3>
+              <p class="mt-1.5 text-[0.9375rem] text-muted">Vyberte, co je vám nejblíž.</p>
+
+              <div class="mt-5 flex flex-col gap-3">
+                <button type="button" data-zamer="koupe" aria-pressed="false" class="volba">
+                  <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary-tint text-primary">
+                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 10.5 12 3l9 7.5V21H3z" />
+                      <path d="M9 21v-7h6v7" />
+                    </svg>
+                  </span>
+                  <span class="min-w-0">
+                    <span class="block font-bold">Koupě nemovitosti</span>
+                    <span class="block text-sm text-muted">Chci koupit dům nebo byt</span>
+                  </span>
+                </button>
+
+                <button type="button" data-zamer="rekonstrukce" aria-pressed="false" class="volba">
+                  <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary-tint text-primary">
+                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14.5 3.5a4 4 0 0 0 5 5L21 7v3l-8 8-4-4 8-8h3z" />
+                      <path d="m8 13-5 5 3 3 5-5" />
+                    </svg>
+                  </span>
+                  <span class="min-w-0">
+                    <span class="block font-bold">Rekonstrukce</span>
+                    <span class="block text-sm text-muted">Plánuju přestavbu nebo modernizaci</span>
+                  </span>
+                </button>
+
+                <button type="button" data-zamer="vystavba" aria-pressed="false" class="volba">
+                  <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary-tint text-primary">
+                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 21h18" />
+                      <path d="M5 21V8l7-5 7 5v13" />
+                      <path d="M9 21v-5h6v5" />
+                      <path d="M9 11h2M13 11h2" />
+                    </svg>
+                  </span>
+                  <span class="min-w-0">
+                    <span class="block font-bold">Developerský projekt / výstavba</span>
+                    <span class="block text-sm text-muted">Stavím nebo řeším developerský projekt</span>
+                  </span>
+                </button>
+              </div>
+
+              <p data-role="chyba-kroku" hidden role="alert" class="mt-4 rounded-lg bg-warning-tint p-3 text-sm text-warning"></p>
+            </section>
+
+            <!-- ---------- KROK 2 ---------- -->
+            <section data-krok="2" hidden aria-label="Krok 2: Nemovitost">
+              <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">O jakou částku jde?</h3>
+              <p class="mt-1.5 text-[0.9375rem] text-muted">Stačí orientační odhad, upřesnit se to dá později.</p>
+
+              <div class="mt-5 flex flex-col gap-5">
+                <div>
+                  <label for="pole-hodnota" data-role="popisek-hodnota" class="mb-1.5 block text-sm font-bold">
+                    Kupní cena nemovitosti
+                  </label>
+                  <div class="relative">
+                    <input
+                      type="text"
+                      id="pole-hodnota"
+                      data-pole="hodnota-zajisteni"
+                      data-castka
+                      inputmode="numeric"
+                      autocomplete="off"
+                      placeholder="např. 5 500 000"
+                      class="pr-12"
+                    />
+                    <span class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-muted">Kč</span>
+                  </div>
+                  <p data-role="napoveda-hodnota" class="mt-1.5 text-[0.8125rem] text-muted"></p>
+                </div>
+
+                <div data-role="blok-castka" hidden>
+                  <label for="pole-castka" data-role="popisek-castka" class="mb-1.5 block text-sm font-bold">Rozpočet</label>
+                  <div class="relative">
+                    <input
+                      type="text"
+                      id="pole-castka"
+                      data-pole="potrebna-castka"
+                      data-castka
+                      inputmode="numeric"
+                      autocomplete="off"
+                      placeholder="např. 1 500 000"
+                      class="pr-12"
+                    />
+                    <span class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-muted">Kč</span>
+                  </div>
+                  <p data-role="napoveda-castka" class="mt-1.5 text-[0.8125rem] text-muted"></p>
+                </div>
+
+                <div data-role="blok-typ">
+                  <label for="pole-typ" class="mb-1.5 block text-sm font-bold">Typ nemovitosti</label>
+                  <select id="pole-typ" data-pole="typ-nemovitosti">
+                    <option value="byt">Byt</option>
+                    <option value="dum">Rodinný dům</option>
+                    <option value="pozemek">Pozemek</option>
+                    <option value="rekreacni">Rekreační objekt</option>
+                    <option value="jine">Jiné / nevím</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="pole-ucel" class="mb-1.5 block text-sm font-bold">K čemu nemovitost bude?</label>
+                  <select id="pole-ucel" data-pole="ucel">
+                    <option value="vlastni_bydleni">Vlastní bydlení</option>
+                    <option value="investice">Investice / pronájem</option>
+                  </select>
+                </div>
+              </div>
+
+              <p data-role="chyba-kroku" hidden role="alert" class="mt-4 rounded-lg bg-warning-tint p-3 text-sm text-warning"></p>
+
+              <div class="mt-6 flex gap-3">
+                <button type="button" data-akce="zpet" class="btn btn-ghost">Zpět</button>
+                <button type="button" data-akce="dalsi" class="btn btn-primary flex-1">Pokračovat</button>
+              </div>
+            </section>
+
+            <!-- ---------- KROK 3 ---------- -->
+            <section data-krok="3" hidden aria-label="Krok 3: Vlastní zdroje">
+              <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">Kolik máte vlastních zdrojů?</h3>
+              <p class="mt-1.5 text-[0.9375rem] text-muted">
+                Úspory, peníze z prodeje jiné nemovitosti, dar od rodiny. Když zatím nic, nechte nulu.
+              </p>
+
+              <div class="mt-5">
+                <label for="pole-zdroje" class="mb-1.5 block text-sm font-bold">Vlastní zdroje</label>
+                <div class="relative">
+                  <input
+                    type="text"
+                    id="pole-zdroje"
+                    data-pole="vlastni-zdroje"
+                    data-castka
+                    inputmode="numeric"
+                    autocomplete="off"
+                    placeholder="např. 1 100 000"
+                    class="pr-12"
+                  />
+                  <span class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-muted">Kč</span>
+                </div>
+                <p class="mt-1.5 text-[0.8125rem] text-muted">
+                  Čím vyšší vlastní zdroje, tím větší prostor banka obvykle má.
+                </p>
+              </div>
+
+              <p data-role="chyba-kroku" hidden role="alert" class="mt-4 rounded-lg bg-warning-tint p-3 text-sm text-warning"></p>
+
+              <div class="mt-6 flex gap-3">
+                <button type="button" data-akce="zpet" class="btn btn-ghost">Zpět</button>
+                <button type="button" data-akce="dalsi" class="btn btn-primary flex-1">Pokračovat</button>
+              </div>
+            </section>
+
+            <!-- ---------- KROK 4 ---------- -->
+            <section data-krok="4" hidden aria-label="Krok 4: Příjmy">
+              <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">Vaše příjmy</h3>
+              <p class="mt-1.5 text-[0.9375rem] text-muted">Příjem je to hlavní, podle čeho banka limit počítá.</p>
+
+              <div class="mt-5 flex flex-col gap-5">
+                <div>
+                  <label for="pole-vek" class="mb-1.5 block text-sm font-bold">Váš věk</label>
+                  <input
+                    type="text"
+                    id="pole-vek"
+                    data-pole="vek"
+                    inputmode="numeric"
+                    autocomplete="off"
+                    placeholder="např. 34"
+                    class="max-w-[8rem]"
+                  />
+                  <p class="mt-1.5 text-[0.8125rem] text-muted">Ovlivňuje maximální dobu splácení.</p>
+                </div>
+
+                <div>
+                  <label for="pole-prijem" class="mb-1.5 block text-sm font-bold">Váš čistý měsíční příjem</label>
+                  <div class="relative">
+                    <input
+                      type="text"
+                      id="pole-prijem"
+                      data-pole="prijem-hlavni"
+                      data-castka
+                      inputmode="numeric"
+                      autocomplete="off"
+                      placeholder="např. 45 000"
+                      class="pr-12"
+                    />
+                    <span class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-muted">Kč</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="pole-typ-prijmu" class="mb-1.5 block text-sm font-bold">Odkud příjem máte?</label>
+                  <select id="pole-typ-prijmu" data-pole="typ-prijmu-hlavni">
+                    <option value="zamestnanec">Zaměstnání</option>
+                    <option value="osvc_danove_priznani">OSVČ — daňové přiznání</option>
+                    <option value="osvc_pausalni_dan">OSVČ — paušální daň</option>
+                    <option value="jednatel_firma">Jednatel / majitel firmy</option>
+                    <option value="rodicovska_duchod_najem">Rodičovská, důchod nebo nájem</option>
+                  </select>
+                </div>
+
+                <div class="rounded-xl bg-background p-4">
+                  <label class="flex cursor-pointer items-center gap-3 text-sm font-bold">
+                    <input type="checkbox" data-pole="ma-spoluzadatele" class="h-5 w-5 accent-[#b1004d]" />
+                    Budeme žádat společně s někým dalším
+                  </label>
+
+                  <div data-role="blok-spoluzadatel" hidden class="mt-4 flex flex-col gap-4">
+                    <div>
+                      <label for="pole-prijem-spolu" class="mb-1.5 block text-sm font-bold">Čistý měsíční příjem spolužadatele</label>
+                      <div class="relative">
+                        <input
+                          type="text"
+                          id="pole-prijem-spolu"
+                          data-pole="prijem-spoluzadatel"
+                          data-castka
+                          inputmode="numeric"
+                          autocomplete="off"
+                          placeholder="např. 35 000"
+                          class="pr-12"
+                        />
+                        <span class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-muted">Kč</span>
+                      </div>
+                    </div>
+                    <div>
+                      <label for="pole-typ-prijmu-spolu" class="mb-1.5 block text-sm font-bold">Odkud má příjem?</label>
+                      <select id="pole-typ-prijmu-spolu" data-pole="typ-prijmu-spoluzadatel">
+                        <option value="zamestnanec">Zaměstnání</option>
+                        <option value="osvc_danove_priznani">OSVČ — daňové přiznání</option>
+                        <option value="osvc_pausalni_dan">OSVČ — paušální daň</option>
+                        <option value="jednatel_firma">Jednatel / majitel firmy</option>
+                        <option value="rodicovska_duchod_najem">Rodičovská, důchod nebo nájem</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p data-role="chyba-kroku" hidden role="alert" class="mt-4 rounded-lg bg-warning-tint p-3 text-sm text-warning"></p>
+
+              <div class="mt-6 flex gap-3">
+                <button type="button" data-akce="zpet" class="btn btn-ghost">Zpět</button>
+                <button type="button" data-akce="dalsi" class="btn btn-primary flex-1">Pokračovat</button>
+              </div>
+            </section>
+
+            <!-- ---------- KROK 5 ---------- -->
+            <section data-krok="5" hidden aria-label="Krok 5: Závazky a domácnost">
+              <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">Závazky a domácnost</h3>
+              <p class="mt-1.5 text-[0.9375rem] text-muted">Poslední údaje před výsledkem. Když nic nemáte, nechte nuly.</p>
+
+              <div class="mt-5 flex flex-col gap-5">
+                <div>
+                  <label for="pole-splatky" class="mb-1.5 block text-sm font-bold">Splátky stávajících úvěrů</label>
+                  <div class="relative">
+                    <input
+                      type="text"
+                      id="pole-splatky"
+                      data-pole="stavajici-splatky"
+                      data-castka
+                      inputmode="numeric"
+                      autocomplete="off"
+                      placeholder="0"
+                      class="pr-12"
+                    />
+                    <span class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-muted">Kč</span>
+                  </div>
+                  <p class="mt-1.5 text-[0.8125rem] text-muted">Měsíčně celkem — půjčky, leasingy, jiné hypotéky.</p>
+                </div>
+
+                <div>
+                  <label for="pole-limity" class="mb-1.5 block text-sm font-bold">Limity kreditek a kontokorentů</label>
+                  <div class="relative">
+                    <input
+                      type="text"
+                      id="pole-limity"
+                      data-pole="kreditni-limity"
+                      data-castka
+                      inputmode="numeric"
+                      autocomplete="off"
+                      placeholder="0"
+                      class="pr-12"
+                    />
+                    <span class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-muted">Kč</span>
+                  </div>
+                  <p class="mt-1.5 text-[0.8125rem] text-muted">
+                    Sjednaný limit dohromady, i když ho nečerpáte — banky ho započítávají.
+                  </p>
+                </div>
+
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label for="pole-dospeli" class="mb-1.5 block text-sm font-bold">Dospělých v domácnosti</label>
+                    <select id="pole-dospeli" data-pole="pocet-dospelych">
+                      <option value="1">1</option>
+                      <option value="2" selected>2</option>
+                      <option value="3">3</option>
+                      <option value="4">4 a více</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="pole-deti" class="mb-1.5 block text-sm font-bold">Vyživovaných dětí</label>
+                    <select id="pole-deti" data-pole="pocet-deti">
+                      <option value="0" selected>0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4 a více</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <p data-role="chyba-kroku" hidden role="alert" class="mt-4 rounded-lg bg-warning-tint p-3 text-sm text-warning"></p>
+
+              <div class="mt-6 flex gap-3">
+                <button type="button" data-akce="zpet" class="btn btn-ghost">Zpět</button>
+                <button type="button" data-akce="dalsi" class="btn btn-primary flex-1">Pokračovat</button>
+              </div>
+            </section>
+
+            <!-- ---------- KROK 6: ORIENTAČNÍ VÝSLEDEK + KONTAKT ----------
+                 Jedna obrazovka hned po vyplnění dotazníku, bez mezikroku: orientační
+                 rozpětí (schválně hrubší než přesný odhad, viz limit.ts), benefitový
+                 blok, důraz na nezávaznost a telefonní formulář rovnou pod sebou —
+                 aby friction mezi "vidím výsledek" a "nechávám kontakt" byla minimální.
+            -->
+            <section data-krok="6" hidden aria-label="Krok 6: Orientační výsledek a kontakt">
+              <button
+                type="button"
+                data-akce="zpet"
+                class="mb-3 inline-flex items-center gap-1 text-sm font-bold text-muted hover:text-primary"
+              >
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 12H5M11 6l-6 6 6 6" />
+                </svg>
+                Zpět
+              </button>
+
+              <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">
+                Váš orientační hypoteční limit
+              </h3>
+              <p class="mt-1.5 text-[0.9375rem] text-muted">Podle údajů, které jste právě zadali.</p>
+
+              <div class="mt-5 rounded-xl bg-primary-tint p-5 text-center">
+                <p
+                  data-role="vysledek-rozpeti"
+                  class="flex flex-wrap items-baseline justify-center gap-x-2 text-2xl font-extrabold leading-snug tracking-tight text-primary sm:text-3xl md:text-4xl"
+                >
+                  —
+                </p>
+                <p data-role="vysledek-popis" class="mt-2 text-sm text-charcoal"></p>
+              </div>
+
+              <div class="mt-6">
+                <h4 class="text-lg font-extrabold">Chcete zjistit, na jakou hypotéku skutečně dosáhnete?</h4>
+                <p class="mt-1.5 leading-relaxed text-charcoal">
+                  Váš orientační limit už znáte. Teď vám pomůžu zjistit, jaké máte reálné možnosti financování
+                  a jak postupovat dál.
+                </p>
+              </div>
+
+              <div class="mt-5 rounded-xl bg-background p-4">
+                <p class="font-bold">Zanechte mi telefonní číslo a do 48 hodin:</p>
+                <ul class="mt-3 flex flex-col gap-2 text-sm">
+                  <li class="flex items-start gap-2">
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-success">
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    Osobně projdeme vaši finanční situaci
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-success">
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    Zjistíme, jaký máte reálný prostor pro hypotéku
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-success">
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    Doporučím vám další kroky k získání hypotéky
+                  </li>
+                </ul>
+                <p class="mt-3 text-sm text-charcoal">
+                  Pomůžu vám udělat jasno v tom, na jaký dům skutečně dosáhnete a jak postupovat dál.
+                </p>
+              </div>
+
+              <div class="mt-4 rounded-r-lg border-l-4 border-primary bg-primary-tint p-4">
+                <p class="font-bold">Zadáním telefonního čísla se k ničemu nezavazujete.</p>
+                <p class="mt-1 text-sm text-charcoal">Jen si společně projdeme vaše možnosti financování.</p>
+                <p class="mt-1 text-[0.8125rem] text-muted">Nemusíte se k ničemu zavazovat ani se rozhodovat hned.</p>
+              </div>
+
+              <form id="lead-form" novalidate class="mt-5 flex flex-col gap-4">
+                <div>
+                  <label for="lead-telefon" class="mb-1.5 block text-base font-bold">Telefonní číslo</label>
+                  <input
+                    type="tel"
+                    id="lead-telefon"
+                    name="telefon"
+                    data-pole="telefon"
+                    autocomplete="tel"
+                    inputmode="tel"
+                    placeholder="+420 777 123 456"
+                    required
+                    aria-describedby="err-telefon"
+                    class="py-4 text-lg font-semibold"
+                  />
+                  <p id="err-telefon" data-chyba="telefon" class="mt-1.5 text-sm text-danger" role="alert"></p>
+                </div>
+
+                <div>
+                  <label for="lead-jmeno" class="mb-1.5 block text-sm font-bold">Jméno a příjmení</label>
+                  <input
+                    type="text"
+                    id="lead-jmeno"
+                    name="jmeno"
+                    data-pole="jmeno"
+                    autocomplete="name"
+                    required
+                    aria-describedby="err-jmeno"
+                  />
+                  <p id="err-jmeno" data-chyba="jmeno" class="mt-1.5 text-sm text-danger" role="alert"></p>
+                </div>
+
+                <div>
+                  <label for="lead-email" class="mb-1.5 block text-sm font-bold">E-mail</label>
+                  <input
+                    type="email"
+                    id="lead-email"
+                    name="email"
+                    data-pole="email"
+                    autocomplete="email"
+                    inputmode="email"
+                    required
+                    aria-describedby="err-email"
+                  />
+                  <p id="err-email" data-chyba="email" class="mt-1.5 text-sm text-danger" role="alert"></p>
+                  <button type="button" data-role="oprava-emailu" hidden class="mt-1 text-sm font-bold text-primary underline"></button>
+                </div>
+
+                <div>
+                  <label for="lead-poznamka" class="mb-1.5 block text-sm font-bold">
+                    Chcete něco doplnit? <span class="font-normal text-muted">(nepovinné)</span>
+                  </label>
+                  <textarea
+                    id="lead-poznamka"
+                    name="poznamka"
+                    data-pole="poznamka"
+                    rows="3"
+                    class="w-full rounded-[10px] border border-hairline bg-surface px-3.5 py-3 text-base"
+                    placeholder="Např. že máte vyhlédnutou konkrétní nemovitost nebo nestandardní příjem."
+                  ></textarea>
+                </div>
+
+                <!-- Honeypot — musí zůstat v DOM, člověk ho nikdy nevidí -->
+                <div class="pole-pro-boty" aria-hidden="true">
+                  <label for="lead-web">Vaše webová stránka</label>
+                  <input type="text" id="lead-web" name="web" data-pole="honeypot" tabindex="-1" autocomplete="off" />
+                </div>
+
+                <div>
+                  <label class="flex cursor-pointer items-start gap-2.5 text-sm leading-relaxed">
+                    <input type="checkbox" data-pole="souhlas" required class="mt-0.5 h-5 w-5 shrink-0 accent-[#b1004d]" aria-describedby="err-souhlas" />
+                    <span>
+                      Souhlasím se <a href="/gdpr" class="font-medium text-primary underline">zpracováním osobních údajů</a>
+                      za účelem zpracování mé poptávky.
+                    </span>
+                  </label>
+                  <p id="err-souhlas" data-chyba="souhlas" class="mt-1.5 text-sm text-danger" role="alert"></p>
+                </div>
+
+                <p data-role="chyba-obecna" hidden role="alert" class="rounded-lg bg-warning-tint p-3 text-sm text-warning"></p>
+
+                <button type="submit" data-role="btn-odeslat" class="btn btn-primary btn-lg w-full">
+                  Chci zjistit svůj reálný limit
+                </button>
+
+                <p class="text-center text-[0.8125rem] text-muted">
+                  Nezávazně. Bez povinnosti sjednat hypotéku.<br />
+                  Ozvu se vám do 48 hodin.
+                </p>
+              </form>
+
+              <p class="mt-4 rounded-lg bg-warning-tint p-3 text-[0.8125rem] text-warning">
+                Orientační odhad není nabídkou ani příslibem úvěru. Konkrétní podmínky posuzuje banka individuálně.
+              </p>
+            </section>
+
+            <!-- ---------- PODĚKOVÁNÍ ---------- -->
+            <div id="kalkulacka-diky" hidden>
+              <div class="flex flex-col items-center py-2 text-center">
+                <span class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-tint text-primary">
+                  <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                </span>
+
+                <h3 data-role="nadpis-diky" tabindex="-1" class="mt-4 text-2xl font-extrabold">Děkuji za vyplnění kalkulačky.</h3>
+
+                <p class="mt-3 max-w-md text-charcoal">
+                  Na základě zadaných údajů připravím přesný propočet vašeho maximálního hypotečního financování
+                  a doporučení, jak dál postupovat.
+                </p>
+
+                <p class="mt-4 rounded-xl bg-background px-5 py-3 font-bold">Přesný výsledek obdržíte do 48 hodin.</p>
+
+                <p class="mt-5 max-w-md text-sm text-muted">
+                  Pokud budu potřebovat něco upřesnit, ozvu se vám na uvedený telefon nebo e-mail.
+                </p>
+
+                <a href="tel:+420774431977" class="btn btn-ghost mt-5">
+                  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                      d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1L6.6 10.8z"
+                    />
+                  </svg>
+                  Zavolat rovnou
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <p class="mx-auto mt-5 max-w-xl text-center text-[0.8125rem] leading-relaxed text-white/60">
+            Kalkulačka slouží k orientaci ve vašich možnostech financování. Není nabídkou ani příslibem úvěru —
+            konkrétní podmínky posuzuje banka individuálně podle bonity, zajištění a dalších okolností.
+          </p>
+        </div>
+      </section>
+
+      <!-- ===================== JAK TO FUNGUJE ===================== -->
+      <section class="py-14 md:py-20">
+        <div class="mx-auto max-w-6xl px-4 md:px-6">
+          <p class="eyebrow">Jak to funguje</p>
+          <h2 class="mt-2 text-2xl font-extrabold md:text-3xl">Tři kroky k jasné představě</h2>
+
+          <ol class="mt-9 grid gap-6 md:grid-cols-3">
+            <li class="karta p-6">
+              <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-primary-tint text-primary">
+                <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="4" y="2.5" width="16" height="19" rx="2.5" />
+                  <path d="M8 7h8M8 12h8M8 16.5h5" />
+                </svg>
+              </span>
+              <p class="mt-4 text-[0.8125rem] font-bold uppercase tracking-[0.08em] text-muted">Krok 1</p>
+              <h3 class="mt-1 text-lg font-extrabold">Vyplníte kalkulačku</h3>
+              <p class="mt-2 leading-relaxed text-charcoal">
+                Zadáte základní informace o své situaci a o tom, co chcete financovat.
+              </p>
+            </li>
+
+            <li class="karta p-6">
+              <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-primary-tint text-primary">
+                <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z" />
+                  <path d="m16 16 4.5 4.5" />
+                  <path d="M8.5 11h5M11 8.5v5" />
+                </svg>
+              </span>
+              <p class="mt-4 text-[0.8125rem] font-bold uppercase tracking-[0.08em] text-muted">Krok 2</p>
+              <h3 class="mt-1 text-lg font-extrabold">Hned uvidíte orientační limit</h3>
+              <p class="mt-2 leading-relaxed text-charcoal">
+                Ještě než cokoliv vyplníte kontaktem, ukážeme vám orientační rozsah vašeho hypotečního limitu.
+              </p>
+            </li>
+
+            <li class="karta p-6">
+              <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-primary-tint text-primary">
+                <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3a6 6 0 0 0-3.5 10.9c.4.3.6.8.6 1.3v.3h5.8v-.3c0-.5.2-1 .6-1.3A6 6 0 0 0 12 3z" />
+                  <path d="M9.5 18.5h5M10.5 21h3" />
+                </svg>
+              </span>
+              <p class="mt-4 text-[0.8125rem] font-bold uppercase tracking-[0.08em] text-muted">Krok 3</p>
+              <h3 class="mt-1 text-lg font-extrabold">Získáte přesný výsledek</h3>
+              <p class="mt-2 leading-relaxed text-charcoal">
+                Necháte mi kontakt a do 48 hodin vám pošlu přesný propočet i doporučení, jak dál postupovat.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ===================== PRO KOHO ===================== -->
+      <section class="bg-background-dark py-14 md:py-20">
+        <div class="mx-auto max-w-6xl px-4 md:px-6">
+          <p class="eyebrow">Pro koho je kalkulačka</p>
+          <h2 class="mt-2 text-2xl font-extrabold md:text-3xl">Nemusíte mít vybranou nemovitost</h2>
+          <p class="mt-3 max-w-2xl leading-relaxed text-charcoal">
+            Svůj limit má smysl znát dřív, než začnete hledat. Ušetří vám to čas i zklamání.
+          </p>
+
+          <div class="mt-9 grid gap-5 md:grid-cols-3">
+            <article class="karta flex flex-col p-6">
+              <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white">
+                <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 10.5 12 3l9 7.5V21H3z" />
+                  <path d="M9 21v-7h6v7" />
+                </svg>
+              </span>
+              <h3 class="mt-4 text-lg font-extrabold">Koupě nemovitosti</h3>
+              <p class="mt-2 grow leading-relaxed text-charcoal">
+                Chcete koupit dům nebo byt a potřebujete zjistit své možnosti financování.
+              </p>
+              <a href="#kalkulacka" data-cta-kalkulacka class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:underline">
+                Spočítat limit
+                <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </a>
+            </article>
+
+            <article class="karta flex flex-col p-6">
+              <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white">
+                <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.5 3.5a4 4 0 0 0 5 5L21 7v3l-8 8-4-4 8-8h3z" />
+                  <path d="m8 13-5 5 3 3 5-5" />
+                </svg>
+              </span>
+              <h3 class="mt-4 text-lg font-extrabold">Rekonstrukce</h3>
+              <p class="mt-2 grow leading-relaxed text-charcoal">
+                Plánujete rekonstrukci a chcete vědět, jaké financování můžete aktuálně získat.
+              </p>
+              <a href="#kalkulacka" data-cta-kalkulacka class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:underline">
+                Spočítat limit
+                <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </a>
+            </article>
+
+            <article class="karta flex flex-col p-6">
+              <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white">
+                <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 21h18" />
+                  <path d="M5 21V8l7-5 7 5v13" />
+                  <path d="M9 21v-5h6v5" />
+                  <path d="M9 11h2M13 11h2" />
+                </svg>
+              </span>
+              <h3 class="mt-4 text-lg font-extrabold">Developerský projekt / výstavba</h3>
+              <p class="mt-2 grow leading-relaxed text-charcoal">
+                Řešíte výstavbu nebo developerský projekt a potřebujete znát svůj hypoteční limit.
+              </p>
+              <a href="#kalkulacka" data-cta-kalkulacka class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:underline">
+                Spočítat limit
+                <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== O HANCE ===================== -->
+      <section id="o-hance" class="py-14 md:py-20">
+        <div class="mx-auto max-w-6xl px-4 md:px-6">
+          <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+            <div>
+              <!--
+                Zdroj: og:image na https://www.belucalife.cz/o-nas — meta tagy stránky
+                (og:description "Ing. et Ing. Hana-Marie Stejná, MSc.") tuto fotku jednoznačně
+                přiřazují k Haně, proto ji lze použít. Originál je portrétní 900×1600 (9:16),
+                proto je zobrazený v poměru 3:4 a object-fit: cover ořízne spodní část snímku,
+                ať zůstane v záběru obličej. TODO (klient): časem nahradit vlastní studiovou
+                fotkou v poměru 3:4 (ideálně 900×1200) pro ostřejší ořez.
+              -->
+              <img
+                src="/img/hana-portret.jpg"
+                alt="Hana-Marie Stejná"
+                width="900"
+                height="1600"
+                loading="lazy"
+                class="aspect-[3/4] w-full rounded-card object-cover object-top shadow-card"
+              />
+            </div>
+
+            <div>
+              <p class="eyebrow">Kdo vám limit spočítá</p>
+              <h2 class="mt-2 text-2xl font-extrabold md:text-3xl">Ing. et Ing. Hana-Marie Stejná, MSc.</h2>
+              <p class="mt-1.5 font-medium text-muted">
+                Finanční poradkyně · zakladatelka BeLuca Life · Brno a celá ČR
+              </p>
+
+              <div class="mt-5 flex flex-col gap-4 leading-relaxed text-charcoal">
+                <p>
+                  Vzděláním jsem ekonomka. Než jsem se v roce 2023 začala naplno věnovat finančnímu poradenství,
+                  pracovala jsem jako projektová manažerka a vedla vlastní obchod i školu jógy. Znám tedy obě strany —
+                  čísla i to, co obnáší rozhodovat se o vlastních penězích.
+                </p>
+                <p class="border-l-[3px] border-primary pl-4 font-medium text-text">
+                  „Klient musí být spokojený a vědět, co a proč v portfoliu má. Jde o dlouhodobý vztah, protože život se
+                  pořád mění.“
+                </p>
+                <p>
+                  Kromě hypoték se věnuju investicím, zajištění a pojištění. Působím jako vázaný zástupce společnosti
+                  4fin Better Together, a.s.
+                </p>
+              </div>
+
+              <dl class="mt-7 grid gap-4 sm:grid-cols-3">
+                <div class="karta p-4">
+                  <dt class="text-[0.8125rem] font-bold uppercase tracking-[0.08em] text-muted">Zaměření</dt>
+                  <dd class="mt-1 font-bold">Hypotéky, investice a pojištění</dd>
+                </div>
+                <div class="karta p-4">
+                  <dt class="text-[0.8125rem] font-bold uppercase tracking-[0.08em] text-muted">Působnost</dt>
+                  <dd class="mt-1 font-bold">Brno a celá ČR</dd>
+                </div>
+                <div class="karta p-4">
+                  <dt class="text-[0.8125rem] font-bold uppercase tracking-[0.08em] text-muted">Pod křídly</dt>
+                  <dd class="mt-1 font-bold">4fin Better Together, a.s.</dd>
+                </div>
+              </dl>
+
+              <a href="#kalkulacka" data-cta-kalkulacka class="btn btn-primary mt-7">Spočítat můj limit</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== REFERENCE ===================== -->
+      <section class="bg-background-dark py-14 md:py-20">
+        <div class="mx-auto max-w-6xl px-4 md:px-6">
+          <p class="eyebrow">Zkušenosti klientů</p>
+          <h2 class="mt-2 text-2xl font-extrabold md:text-3xl">Co říkají lidé, kterým Hana pomohla</h2>
+
+          <!--
+            TODO (klient): reference níže jsou převzaté z belucalife.cz a týkají se
+            výhradně Hany-Marie Stejné. Doplnit případné další reference k hypotékám.
+          -->
+          <div class="mt-9 grid gap-5 md:grid-cols-3">
+            <figure class="karta flex flex-col p-6">
+              <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" class="text-primary-tint">
+                <path d="M9.5 5C6.5 6.6 4.8 9.3 4.8 12.6V19h6.6v-6.6H7.9c0-2.3.9-3.9 2.8-5L9.5 5zm9 0c-3 1.6-4.7 4.3-4.7 7.6V19h6.6v-6.6h-3.5c0-2.3.9-3.9 2.8-5L18.5 5z" />
+              </svg>
+              <blockquote class="mt-3 grow text-[1.0625rem] font-medium leading-relaxed">
+                „Paní Hana nám zařídila hypotéku na náš první byt.“
+              </blockquote>
+              <figcaption class="mt-4 text-sm font-bold text-muted">Hana P. · Jihlava</figcaption>
+            </figure>
+
+            <figure class="karta flex flex-col p-6">
+              <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" class="text-primary-tint">
+                <path d="M9.5 5C6.5 6.6 4.8 9.3 4.8 12.6V19h6.6v-6.6H7.9c0-2.3.9-3.9 2.8-5L9.5 5zm9 0c-3 1.6-4.7 4.3-4.7 7.6V19h6.6v-6.6h-3.5c0-2.3.9-3.9 2.8-5L18.5 5z" />
+              </svg>
+              <blockquote class="mt-3 grow text-[1.0625rem] font-medium leading-relaxed">
+                „Paní Stejná nám pomohla zařídit hypotéku na rekonstrukci našeho domu.“
+              </blockquote>
+              <figcaption class="mt-4 text-sm font-bold text-muted">Miloslav T. · Rajhradice</figcaption>
+            </figure>
+
+            <figure class="karta flex flex-col p-6">
+              <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" class="text-primary-tint">
+                <path d="M9.5 5C6.5 6.6 4.8 9.3 4.8 12.6V19h6.6v-6.6H7.9c0-2.3.9-3.9 2.8-5L9.5 5zm9 0c-3 1.6-4.7 4.3-4.7 7.6V19h6.6v-6.6h-3.5c0-2.3.9-3.9 2.8-5L18.5 5z" />
+              </svg>
+              <blockquote class="mt-3 grow text-[1.0625rem] font-medium leading-relaxed">
+                „Hanka mi pomohla s nastavením mého investičního portfolia.“
+              </blockquote>
+              <figcaption class="mt-4 text-sm font-bold text-muted">Kateřina K. · Blansko</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== FAQ ===================== -->
+      <section class="py-14 md:py-20" data-faq>
+        <div class="mx-auto max-w-3xl px-4 md:px-6">
+          <p class="eyebrow">Časté otázky</p>
+          <h2 class="mt-2 text-2xl font-extrabold md:text-3xl">Na co se lidé ptají nejčastěji</h2>
+
+          <div class="mt-8 flex flex-col gap-3">
+            <details class="karta group px-5 py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold">
+                Co potřebuju pro vyplnění kalkulačky?
+                <span class="shrink-0 text-primary transition-transform group-open:rotate-45" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                </span>
+              </summary>
+              <p class="mt-3 leading-relaxed text-charcoal">
+                Stačí vám orientační čísla: jakou částku řešíte, kolik máte vlastních zdrojů, jaký máte čistý měsíční
+                příjem a jaké splátky už platíte. Nic nemusíte nikde dohledávat ani dokládat.
+              </p>
+            </details>
+
+            <details class="karta group px-5 py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold">
+                Jak dlouho vyplnění trvá?
+                <span class="shrink-0 text-primary transition-transform group-open:rotate-45" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                </span>
+              </summary>
+              <p class="mt-3 leading-relaxed text-charcoal">
+                Zhruba dvě minuty. Kalkulačka má šest krátkých kroků a vždy vidíte, kolik jich ještě zbývá.
+              </p>
+            </details>
+
+            <details class="karta group px-5 py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold">
+                Kdy dostanu informace o svém maximálním hypotečním limitu?
+                <span class="shrink-0 text-primary transition-transform group-open:rotate-45" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                </span>
+              </summary>
+              <p class="mt-3 leading-relaxed text-charcoal">
+                Orientační rozsah uvidíte hned po vyplnění kalkulačky, ještě před zadáním kontaktu. Přesný propočet
+                a doporučení, jak dál postupovat, vám pošlu do 48 hodin — vaše údaje si projdu osobně, proto to
+                není okamžitě.
+              </p>
+            </details>
+
+            <details class="karta group px-5 py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold">
+                Je kalkulačka zdarma?
+                <span class="shrink-0 text-primary transition-transform group-open:rotate-45" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                </span>
+              </summary>
+              <p class="mt-3 leading-relaxed text-charcoal">
+                Ano, vyplnění kalkulačky i informace o vašem limitu jsou zdarma a nezavazují vás k ničemu dalšímu.
+              </p>
+            </details>
+
+            <details class="karta group px-5 py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold">
+                Co když ještě nemám vybranou nemovitost?
+                <span class="shrink-0 text-primary transition-transform group-open:rotate-45" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                </span>
+              </summary>
+              <p class="mt-3 leading-relaxed text-charcoal">
+                To vůbec nevadí — právě naopak. Stačí zadat částku, se kterou zhruba počítáte. Znát svůj limit dřív,
+                než začnete hledat, vám ušetří spoustu času.
+              </p>
+            </details>
+
+            <details class="karta group px-5 py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold">
+                Co když řeším rekonstrukci?
+                <span class="shrink-0 text-primary transition-transform group-open:rotate-45" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                </span>
+              </summary>
+              <p class="mt-3 leading-relaxed text-charcoal">
+                Kalkulačka s rekonstrukcí počítá. Zeptá se vás na rozpočet i na odhadovanou hodnotu nemovitosti po
+                dokončení — u rekonstrukce je totiž rozhodující právě hodnota po přestavbě.
+              </p>
+            </details>
+
+            <details class="karta group px-5 py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold">
+                Co když řeším developerský projekt nebo výstavbu?
+                <span class="shrink-0 text-primary transition-transform group-open:rotate-45" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                </span>
+              </summary>
+              <p class="mt-3 leading-relaxed text-charcoal">
+                Vyberte v prvním kroku možnost „Developerský projekt / výstavba“. Kalkulačka se doptá na rozpočet
+                a odhadovanou hodnotu po dokončení. U větších projektů se vám ozvu, abychom si detaily upřesnili.
+              </p>
+            </details>
+
+            <details class="karta group px-5 py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold">
+                Je výsledek kalkulačky závazný?
+                <span class="shrink-0 text-primary transition-transform group-open:rotate-45" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                </span>
+              </summary>
+              <p class="mt-3 leading-relaxed text-charcoal">
+                Ne. Jde o orientační informaci, která vám má pomoct se zorientovat ve vašich možnostech. Není to
+                nabídka ani příslib úvěru — konečné podmínky vždy posuzuje konkrétní banka podle doložených podkladů.
+              </p>
+            </details>
+
+            <details class="karta group px-5 py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold">
+                Co se stane s mými údaji?
+                <span class="shrink-0 text-primary transition-transform group-open:rotate-45" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                </span>
+              </summary>
+              <p class="mt-3 leading-relaxed text-charcoal">
+                Použiju je jen na zpracování vaší poptávky a nikomu dalšímu je nepředávám. Podrobnosti najdete
+                v <a href="/gdpr" class="font-medium text-primary underline">informacích o zpracování osobních údajů</a>.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== OSOBNÍ SEKCE ===================== -->
+      <section class="py-14 md:py-20">
+        <div class="mx-auto max-w-6xl px-4 md:px-6">
+          <div class="grid items-center gap-8 md:grid-cols-2 md:gap-12">
+            <img
+              src="/img/hana-psi.jpg"
+              alt="Dva psi, kteří Haně dělají společnost"
+              width="1376"
+              height="768"
+              loading="lazy"
+              class="w-full rounded-card object-cover shadow-card"
+            />
+            <div>
+              <p class="eyebrow">Mimo čísla a hypotéky</p>
+              <h2 class="mt-2 text-2xl font-extrabold md:text-3xl">
+                I při financování myslím na to, co je pro vás důležité.
+              </h2>
+              <p class="mt-3 max-w-lg leading-relaxed text-charcoal">
+                Vlastní bydlení není jen o číslech a hypotéce. Je to místo, kde se budete cítit dobře vy i ti,
+                na kterých vám záleží.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== ZÁVĚREČNÉ CTA ===================== -->
+      <section class="bg-ink py-14 md:py-20">
+        <div class="mx-auto max-w-2xl px-4 text-center md:px-6">
+          <h2 class="text-2xl font-extrabold text-white md:text-3xl">Kolik vám banka maximálně půjčí?</h2>
+          <p class="mx-auto mt-3 max-w-lg leading-relaxed text-white/70">
+            Vyplňte kalkulačku a informace o svém maximálním hypotečním limitu dostanete do 48 hodin.
+          </p>
+          <a href="#kalkulacka" data-cta-kalkulacka class="btn btn-primary btn-lg mt-7">Spočítat můj limit</a>
+          <p class="mt-4 text-sm text-white/50">Zdarma · nezávazně · bez schůzky</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== PATIČKA ===================== -->
+    <footer class="border-t border-hairline bg-background py-12">
+      <div class="mx-auto max-w-6xl px-4 md:px-6">
+        <div class="grid gap-9 md:grid-cols-3">
+          <div>
+            <p class="font-extrabold">Ing. et Ing. Hana-Marie Stejná, MSc.</p>
+            <p class="mt-1 text-sm text-muted">Finanční poradkyně · BeLuca Life</p>
+            <p class="mt-3 text-sm leading-relaxed text-charcoal">
+              Vázaný zástupce společnosti<br />4fin Better Together, a.s.
+            </p>
+          </div>
+
+          <div>
+            <p class="text-[0.8125rem] font-bold uppercase tracking-[0.08em] text-muted">Kontakt</p>
+            <ul class="mt-3 flex flex-col gap-2 text-sm">
+              <li>
+                <a href="tel:+420774431977" class="font-medium text-primary hover:underline">+420 774 431 977</a>
+              </li>
+              <li>
+                <a href="mailto:hana.stejna@4fin.cz" class="font-medium text-primary hover:underline">hana.stejna@4fin.cz</a>
+              </li>
+              <li class="text-charcoal">Brno — Horní Heršpice</li>
+            </ul>
+          </div>
+
+          <div>
+            <p class="text-[0.8125rem] font-bold uppercase tracking-[0.08em] text-muted">Dokumenty</p>
+            <ul class="mt-3 flex flex-col gap-2 text-sm">
+              <li><a href="/gdpr" class="text-charcoal hover:text-primary hover:underline">Zpracování osobních údajů</a></li>
+              <li><a href="/cookies" class="text-charcoal hover:text-primary hover:underline">Cookies</a></li>
+              <!-- TODO (klient): doplnit odkaz na obchodní podmínky, pokud budou -->
+            </ul>
+          </div>
+        </div>
+
+        <!--
+          Právní status ověřen přímo z vlastního webu Hany (belucalife.cz): "Jsem vázaným zástupcem
+          investičního zprostředkovatele 4Fin Better Together, a.s." IČO a sídlo 4fin Better Together, a.s.
+          ověřeno napříč veřejnými rejstříkovými servery (mesec.cz, finmag.cz, kurzy.cz, podnikatel.cz) —
+          IČO 06018521, sp. zn. B 22413 u Městského soudu v Praze.
+
+          TODO (klient): vlastní IČO Hany-Marie Stejné (pokud ho pro tuto činnost má) a registrační číslo
+          v registru ČNB (seznam vázaných zástupců, cnb.cz) se veřejně dohledat nepodařilo.
+          Poznámka: v obchodním rejstříku je Ing. Hana Stejná (Brno) vedená jako jednatelka BeLuca Food s.r.o.,
+          IČO 02904951, sídlo Osamělá 788/61, Horní Heršpice, 619 00 Brno — jde ale o obchodní činnost,
+          ne finanční poradenství, proto tohle IČO níže záměrně nepoužíváme, jen potvrzuje adresu.
+        -->
+        <div class="mt-9 rounded-xl border border-hairline bg-surface p-4 text-[0.8125rem] leading-relaxed text-muted">
+          <p>
+            Hana-Marie Stejná je <strong class="text-charcoal">vázaným zástupcem investičního zprostředkovatele
+            4fin Better Together, a.s.</strong> (IČO 06018521, sídlem Na hřebenech II 1718/10, 140 00 Praha 4 –
+            Nusle, sp. zn. B 22413 vedená u Městského soudu v Praze).
+          </p>
+          <p class="mt-2">
+            <strong class="text-charcoal">Vlastní IČO:</strong> [doplnit] ·
+            <strong class="text-charcoal">Registrační číslo v registru ČNB:</strong> [doplnit]
+          </p>
+          <p class="mt-2">
+            Výpočet v kalkulačce je orientační a <strong class="text-charcoal">není závazným příslibem banky</strong>
+            ani nabídkou úvěru. Skutečnou výši úvěru, úrokovou sazbu a další podmínky stanoví banka individuálně
+            na základě posouzení bonity, zajištění a doložených podkladů.
+          </p>
+        </div>
+
+        <p class="mt-6 text-[0.8125rem] text-muted">© 2026 Hana-Marie Stejná</p>
+      </div>
+    </footer>
+
+    <!-- ===================== STICKY CTA (mobil) ===================== -->
+    <div
+      id="sticky-cta"
+      hidden
+      class="fixed inset-x-0 bottom-0 z-40 border-t border-hairline bg-surface/95 px-4 py-3 shadow-[0_-4px_20px_-8px_rgb(26_22_20/0.2)] backdrop-blur-sm md:hidden"
+      style="padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px))"
+    >
+      <a href="#kalkulacka" data-cta-kalkulacka class="btn btn-primary w-full">Spočítat můj limit</a>
+    </div>
+
+    <!-- ===================== COOKIE LIŠTA ===================== -->
+    <div
+      id="cookie-lista"
+      hidden
+      role="dialog"
+      aria-label="Nastavení cookies"
+      class="fixed inset-x-0 bottom-0 z-50 border-t border-hairline bg-surface px-4 py-4 shadow-[0_-4px_24px_-8px_rgb(26_22_20/0.25)]"
+      style="padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px))"
+    >
+      <div class="mx-auto max-w-4xl">
+        <p class="text-sm leading-relaxed text-charcoal">
+          Používám cookies, aby web fungoval a abych viděla, jestli má reklama smysl. Analytické a marketingové
+          cookies načtu jen s vaším souhlasem.
+          <a href="/cookies" class="font-medium text-primary underline">Více informací</a>
+        </p>
+
+        <div data-role="cookie-nastaveni" hidden class="mt-3 flex flex-col gap-2 rounded-lg bg-background p-3 text-sm">
+          <label class="flex items-center gap-2.5 text-muted">
+            <input type="checkbox" checked disabled class="h-4 w-4 accent-[#b1004d]" />
+            Nezbytné — nutné pro chod webu (nelze vypnout)
+          </label>
+          <label class="flex cursor-pointer items-center gap-2.5">
+            <input type="checkbox" data-cookie="analytika" class="h-4 w-4 accent-[#b1004d]" />
+            Analytické — anonymní statistiky návštěvnosti
+          </label>
+          <label class="flex cursor-pointer items-center gap-2.5">
+            <input type="checkbox" data-cookie="marketing" class="h-4 w-4 accent-[#b1004d]" />
+            Marketingové — měření účinnosti reklamy
+          </label>
+          <button type="button" data-akce="cookie-ulozit" class="btn btn-ghost mt-1 self-start py-2! text-sm">
+            Uložit nastavení
+          </button>
+        </div>
+
+        <div class="mt-3 flex flex-wrap gap-2">
+          <button type="button" data-akce="cookie-vse" class="btn btn-primary py-2.5! text-sm">Přijmout vše</button>
+          <button type="button" data-akce="cookie-nezbytne" class="btn btn-ghost py-2.5! text-sm">Jen nezbytné</button>
+          <button type="button" data-akce="cookie-nastavit" aria-expanded="false" class="btn btn-ghost py-2.5! text-sm">
+            Nastavit
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

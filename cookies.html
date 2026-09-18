@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Cookies | Hana-Marie Stejná</title>
+    <meta name="description" content="Jaké cookies web používá a jak si nastavení změníte." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script type="module" src="/src/legal.ts"></script>
+  </head>
+
+  <body>
+    <header class="border-b border-hairline bg-background">
+      <div class="mx-auto max-w-3xl px-4 py-4 md:px-6">
+        <a href="/" class="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M11 6l-6 6 6 6" />
+          </svg>
+          Zpět na kalkulačku
+        </a>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-3xl px-4 py-10 md:px-6 md:py-16">
+      <h1 class="text-3xl font-extrabold md:text-4xl">Cookies</h1>
+
+      <div class="mt-8 flex flex-col gap-8 leading-relaxed text-charcoal">
+        <section>
+          <h2 class="text-xl font-extrabold text-text">Co jsou cookies</h2>
+          <p class="mt-3">
+            Cookies jsou malé soubory, které si web ukládá ve vašem prohlížeči. Některé jsou nutné k tomu, aby web
+            vůbec fungoval, jiné pomáhají měřit návštěvnost nebo účinnost reklamy.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-extrabold text-text">Jaké kategorie web používá</h2>
+
+          <div class="mt-4 flex flex-col gap-4">
+            <div class="karta p-5">
+              <h3 class="font-extrabold">Nezbytné</h3>
+              <p class="mt-2 text-sm">
+                Uchovávají vaši volbu v cookie liště a údaje o zdroji návštěvy po dobu jedné návštěvy. Bez nich by web
+                nefungoval správně, proto je nelze vypnout. Ukládají se v úložišti prohlížeče, ne na serveru.
+              </p>
+            </div>
+
+            <div class="karta p-5">
+              <h3 class="font-extrabold">Analytické</h3>
+              <p class="mt-2 text-sm">
+                Anonymní statistiky návštěvnosti — kolik lidí web navštívilo a které části je zajímaly. Načítají se
+                pouze s vaším souhlasem.
+              </p>
+            </div>
+
+            <div class="karta p-5">
+              <h3 class="font-extrabold">Marketingové</h3>
+              <p class="mt-2 text-sm">
+                Měření účinnosti reklamy na sociálních sítích (Meta Pixel). Umožňují vyhodnotit, zda reklama vede
+                k vyplnění kalkulačky. Načítají se pouze s vaším souhlasem.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-extrabold text-text">Jak nastavení změníte</h2>
+          <p class="mt-3">
+            Svou volbu můžete kdykoliv změnit — stačí smazat data webu v nastavení prohlížeče. Cookie lišta se pak
+            zobrazí znovu a nastavíte si ji podle sebe.
+          </p>
+          <p class="mt-3">
+            Podrobnosti o zpracování osobních údajů najdete v
+            <a href="/gdpr" class="font-medium text-primary underline">samostatném dokumentu</a>.
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="border-t border-hairline bg-background py-8">
+      <div class="mx-auto max-w-3xl px-4 text-sm text-muted md:px-6">
+        <a href="/" class="font-medium text-primary hover:underline">Zpět na kalkulačku</a>
+        <p class="mt-3">© 2026 Hana-Marie Stejná</p>
+      </div>
+    </footer>
+
+    <div
+      id="cookie-lista"
+      hidden
+      role="dialog"
+      aria-label="Nastavení cookies"
+      class="fixed inset-x-0 bottom-0 z-50 border-t border-hairline bg-surface px-4 py-4"
+      style="padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px))"
+    >
+      <div class="mx-auto max-w-4xl">
+        <p class="text-sm leading-relaxed text-charcoal">
+          Používám cookies, aby web fungoval a abych viděla, jestli má reklama smysl.
+        </p>
+        <div data-role="cookie-nastaveni" hidden class="mt-3 flex flex-col gap-2 rounded-lg bg-background p-3 text-sm">
+          <label class="flex items-center gap-2.5 text-muted">
+            <input type="checkbox" checked disabled class="h-4 w-4 accent-[#b1004d]" /> Nezbytné (nelze vypnout)
+          </label>
+          <label class="flex cursor-pointer items-center gap-2.5">
+            <input type="checkbox" data-cookie="analytika" class="h-4 w-4 accent-[#b1004d]" /> Analytické
+          </label>
+          <label class="flex cursor-pointer items-center gap-2.5">
+            <input type="checkbox" data-cookie="marketing" class="h-4 w-4 accent-[#b1004d]" /> Marketingové
+          </label>
+          <button type="button" data-akce="cookie-ulozit" class="btn btn-ghost mt-1 self-start py-2! text-sm">Uložit nastavení</button>
+        </div>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <button type="button" data-akce="cookie-vse" class="btn btn-primary py-2.5! text-sm">Přijmout vše</button>
+          <button type="button" data-akce="cookie-nezbytne" class="btn btn-ghost py-2.5! text-sm">Jen nezbytné</button>
+          <button type="button" data-akce="cookie-nastavit" aria-expanded="false" class="btn btn-ghost py-2.5! text-sm">Nastavit</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

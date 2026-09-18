@@ -1,0 +1,48 @@
+{
+  "_README": "TODO (Hanka): všechna čísla v tomto souboru jsou VÝCHOZÍ ODHAD, ne ověřená pravidla konkrétních bank. Než web pustíte do reklamy, projděte je a přepište podle toho, s čím reálně pracujete. Nic jiného v kódu měnit nemusíte — kalkulačka i e-mail s leadem berou hodnoty odsud.",
+  "aktualizovano": "2026-09-18",
+
+  "sazba_pro_odhad": 5.4,
+  "_sazba_pro_odhad": "Orientační roční úroková sazba v %, se kterou se počítá modelová splátka. Klientovi se nikde nezobrazuje.",
+
+  "max_splatnost_let": 30,
+  "vek_splaceni_do": 70,
+  "_splatnost": "Splatnost se zkracuje tak, aby byl úvěr doplacen do věku 'vek_splaceni_do'.",
+
+  "dsti_max": 0.45,
+  "dsti_max_do36": 0.5,
+  "_dsti": "Podíl všech měsíčních splátek na čistém měsíčním příjmu domácnosti.",
+
+  "dti_max": 8.5,
+  "dti_max_do36": 9.5,
+  "_dti": "Násobek ročního čistého příjmu domácnosti, do kterého se vejde celkové zadlužení.",
+
+  "ltv_max": {
+    "vlastni_bydleni": 0.8,
+    "vlastni_bydleni_do36": 0.9,
+    "investice": 0.7
+  },
+  "_ltv": "Podíl úvěru na hodnotě zastavené nemovitosti. U rekonstrukce se počítá z hodnoty nemovitosti PO rekonstrukci.",
+
+  "kreditni_limit_koeficient": 0.05,
+  "_kreditni_limit": "Z nevyčerpaných limitů kreditních karet a kontokorentů se do splátek započítává tento podíl měsíčně.",
+
+  "zivotni_naklady": {
+    "prvni_dospely": 9000,
+    "dalsi_dospely": 6500,
+    "dite": 4500
+  },
+  "_zivotni_naklady": "Měsíční rezerva v Kč, která musí domácnosti zůstat po zaplacení všech splátek.",
+
+  "koeficient_prijmu": {
+    "zamestnanec": 1,
+    "osvc_danove_priznani": 1,
+    "osvc_pausalni_dan": 0.8,
+    "jednatel_firma": 1,
+    "rodicovska_duchod_najem": 0.8
+  },
+  "_koeficient_prijmu": "Jak velká část doloženého čistého příjmu se do výpočtu započítá podle typu příjmu.",
+
+  "min_uver": 300000,
+  "zaokrouhleni_vysledku": 50000
+}
