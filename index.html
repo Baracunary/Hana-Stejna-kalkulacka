@@ -890,9 +890,11 @@
                 Zdroj: og:image na https://www.belucalife.cz/o-nas — meta tagy stránky
                 (og:description "Ing. et Ing. Hana-Marie Stejná, MSc.") tuto fotku jednoznačně
                 přiřazují k Haně, proto ji lze použít. Originál je portrétní 900×1600 (9:16),
-                proto je zobrazený v poměru 3:4 a object-fit: cover ořízne spodní část snímku,
-                ať zůstane v záběru obličej. TODO (klient): časem nahradit vlastní studiovou
-                fotkou v poměru 3:4 (ideálně 900×1200) pro ostřejší ořez.
+                proto je zobrazený v poměru 3:4 a object-fit: cover ořízne část snímku.
+                object-center ořízne rovnoměrně shora i zdola, ať zůstane obličej vystředěný
+                (object-top uřezával bradu, protože na originálu je obličej níž ve snímku).
+                TODO (klient): časem nahradit vlastní studiovou fotkou v poměru 3:4
+                (ideálně 900×1200) pro ostřejší ořez.
               -->
               <img
                 src="/img/hana-portret.jpg"
@@ -900,7 +902,7 @@
                 width="900"
                 height="1600"
                 loading="lazy"
-                class="aspect-[3/4] w-full rounded-card object-cover object-top shadow-card"
+                class="aspect-[3/4] w-full rounded-card object-cover object-center shadow-card"
               />
             </div>
 
