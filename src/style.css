@@ -307,25 +307,19 @@
     text-transform: uppercase;
   }
 
-  /* --- kulatý medailon psa: zdrojové PNG má průhledné pozadí a je už
-     oříznuté na obličej, takže stačí mírné přiblížení a vystředění --- */
+  /* --- kulatý medailon psa: zdrojová PNG je hotová placka s vlastním
+     rámečkem a krémovým pozadím, sem se jen vystředí a ořízne na jistotu --- */
   .pes-medailon {
-    background-color: var(--color-hlidacky-cream);
-    border: 2px solid var(--color-hlidacky-border);
     border-radius: 9999px;
     display: block;
+    flex-shrink: 0;
     overflow: hidden;
-    position: relative;
   }
   .pes-medailon img {
-    height: 120%;
-    left: 50%;
-    max-width: none;
+    display: block;
+    height: 100%;
     object-fit: cover;
-    position: absolute;
-    top: 0;
-    transform: translateX(-50%);
-    width: 120%;
+    width: 100%;
   }
 
   /* --- pečeť s tlapkou: drobný dekorativní prvek, vosková, vínově hnědá --- */
