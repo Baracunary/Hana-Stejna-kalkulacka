@@ -16,6 +16,7 @@ import {
   trackOrientacniVysledek,
   trackZahajeniKontaktu,
 } from './analytics'
+import { PSI, NAPOVEDY_KROKU } from '../data/hlidacky'
 
 export interface KalkulackaStav {
   zamer: Zamer | null
@@ -134,6 +135,31 @@ export function inicializujKalkulacku(): Kalkulacka | null {
   const kroky = new Map<number, HTMLElement>()
   obal.querySelectorAll<HTMLElement>('[data-krok]').forEach((el) => {
     kroky.set(Number(el.dataset.krok), el)
+  })
+
+  // Nápovědy hlídaček (Bella & Naira) u hlaviček kroků — text je jen v datovém
+  // souboru hlidacky.ts, sem se vykresluje jednorázově při startu.
+  kroky.forEach((krok, cisloKroku) => {
+    const napoveda = NAPOVEDY_KROKU[cisloKroku]
+    const misto = krok.querySelector<HTMLElement>('[data-role="hlidacka-napoveda"]')
+    if (!napoveda || !misto) return
+
+    const pes = PSI[napoveda.pes]
+    const medailon = document.createElement('span')
+    medailon.className = `pes-medailon pes-medailon--${napoveda.pes} h-10 w-10 shrink-0`
+    const obrazek = document.createElement('img')
+    obrazek.src = pes.obrazek
+    obrazek.alt = pes.alt
+    obrazek.width = 160
+    obrazek.height = 160
+    obrazek.loading = 'lazy'
+    medailon.append(obrazek)
+
+    const text = document.createElement('p')
+    text.className = 'text-xs leading-snug text-charcoal'
+    text.textContent = napoveda.text
+
+    misto.append(medailon, text)
   })
 
   const progresVypln = obal.querySelector<HTMLElement>('[data-role="progres-vypln"]')
@@ -421,6 +447,14 @@ export function inicializujKalkulacku(): Kalkulacka | null {
     // Kroky 3 a 5 mohou zůstat nulové (nemám vlastní zdroje / nemám závazky).
     return null
   }
+
+  /* --- krok 6: Nairino CTA odscrolluje a zafokusuje rovnou telefon --- */
+  const krok6 = kroky.get(6)
+  krok6?.querySelector<HTMLButtonElement>('[data-akce="fokus-kontakt"]')?.addEventListener('click', () => {
+    const telefon = document.getElementById('lead-telefon')
+    telefon?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    if (telefon instanceof HTMLInputElement) telefon.focus({ preventScroll: true })
+  })
 
   /* --- navigace --- */
   obal.querySelectorAll<HTMLButtonElement>('[data-akce="dalsi"]').forEach((tlacitko) => {

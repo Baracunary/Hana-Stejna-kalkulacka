@@ -43,6 +43,13 @@
   --shadow-lift: 0 2px 4px rgb(26 22 20 / 0.05), 0 18px 40px -18px rgb(140 22 66 / 0.25);
 
   --radius-card: 14px;
+
+  /* --- hlídačky (Bella & Naira): letáková kartička, navazuje na značku výše --- */
+  --color-hlidacky-cream-light: #f6e2c4;
+  --color-hlidacky-cream: #f3d3a6;
+  --color-hlidacky-text: #3a2a22;
+  --color-hlidacky-border: #c9a063;
+  --color-hlidacky-seal: #6b2331;
 }
 
 /* =========================================================================
@@ -202,6 +209,11 @@
     padding: 1.0625rem 2rem;
   }
 
+  .btn-sm {
+    font-size: 0.8125rem;
+    padding: 0.625rem 1rem;
+  }
+
   /* --- karty --- */
   .karta {
     background-color: var(--color-surface);
@@ -268,6 +280,80 @@
     overflow: hidden;
     position: absolute;
     width: 0;
+  }
+
+  /* =====================================================================
+     HLÍDAČKY — Bella & Naira, maskoti poradny. Vizuál letáku: krémová
+     kartička, tmavě hnědý text, jemný zlatavý okraj.
+     ===================================================================== */
+
+  /* --- letáková kartička --- */
+  .letakova-karticka {
+    background: linear-gradient(160deg, var(--color-hlidacky-cream-light), var(--color-hlidacky-cream));
+    border: 1px solid var(--color-hlidacky-border);
+    border-radius: var(--radius-card);
+    color: var(--color-hlidacky-text);
+  }
+
+  /* --- úzký pruh ve stylu upozornění --- */
+  .pruh-upozorneni {
+    background-color: var(--color-ink);
+    border-radius: 8px;
+    color: var(--color-hlidacky-cream-light);
+    font-size: 0.6875rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  /* --- kulatý medailon psa: zdrojové PNG má průhledné pozadí a je už
+     oříznuté na obličej, takže stačí mírné přiblížení a vystředění --- */
+  .pes-medailon {
+    background-color: var(--color-hlidacky-cream);
+    border: 2px solid var(--color-hlidacky-border);
+    border-radius: 9999px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+  }
+  .pes-medailon img {
+    height: 120%;
+    left: 50%;
+    max-width: none;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    width: 120%;
+  }
+
+  /* --- pečeť s tlapkou: drobný dekorativní prvek, vosková, vínově hnědá --- */
+  .pecet-tlapka {
+    filter: drop-shadow(0 2px 4px rgb(58 42 34 / 0.25));
+  }
+}
+
+/* =========================================================================
+   FADE-IN PŘI SCROLLU — jen pro nové dekorativní prvky mimo kalkulačku.
+   Kalkulačka má vlastní krok-vstup animaci výše.
+   ========================================================================= */
+
+[data-fade-in] {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+[data-fade-in].je-viditelny {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-fade-in] {
+    opacity: 1;
+    transform: none;
   }
 }
 

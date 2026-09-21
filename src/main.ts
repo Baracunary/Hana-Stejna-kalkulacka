@@ -9,6 +9,7 @@ import { inicializujKalkulacku } from './lib/kalkulacka'
 import { inicializujFormular } from './lib/formular'
 import { inicializujAccordion } from './lib/accordion'
 import { inicializujStickyCta } from './lib/sticky-cta'
+import { inicializujFadeIn } from './lib/fade-in'
 
 function start(): void {
   // UTM musí být první — zdroj návštěvy se čte z URL hned při načtení.
@@ -16,6 +17,7 @@ function start(): void {
   inicializujAnalytiku()
   inicializujCookieListu()
   inicializujAccordion()
+  inicializujFadeIn()
 
   const kalkulacka = inicializujKalkulacku()
 

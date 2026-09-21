@@ -9,11 +9,12 @@
       content="Zjistěte, kolik vám banka může aktuálně maximálně půjčit. Vyplňte kalkulačku a do 48 hodin dostanete informace o svém maximálním možném hypotečním financování."
     />
     <meta name="robots" content="index, follow" />
-    <!-- TODO: doplnit finální doménu a odkomentovat -->
-    <!-- <link rel="canonical" href="https://www.example.cz/" /> -->
+    <meta name="author" content="Ing. et Ing. Hana-Marie Stejná, MSc." />
+    <link rel="canonical" href="https://www.poradnabeluca.cz/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:url" content="https://www.poradnabeluca.cz/" />
     <meta property="og:title" content="Kolik vám banka maximálně půjčí?" />
     <meta
       property="og:description"
@@ -62,7 +63,10 @@
             HS
           </span>
           <span class="min-w-0 leading-tight">
-            <span class="block truncate text-[0.9375rem] font-bold">Hana-Marie Stejná</span>
+            <span class="flex flex-wrap items-baseline gap-x-1.5">
+              <span class="shrink-0 text-[0.6875rem] font-medium text-muted">Ing. et Ing.</span>
+              <span class="font-bold text-[0.9375rem]">Hana-Marie Stejná, MSc.</span>
+            </span>
             <span class="block truncate text-xs text-muted">Hypoteční financování</span>
           </span>
         </a>
@@ -120,6 +124,18 @@
             <p class="text-sm text-muted sm:max-w-[16rem] sm:text-left">Zabere zhruba 2 minuty. Zdarma a nezávazně.</p>
           </div>
 
+          <div
+            class="letakova-karticka mx-auto mt-6 flex max-w-[22rem] items-center gap-3 px-4 py-3 text-left"
+            data-fade-in
+          >
+            <span class="pes-medailon pes-medailon--bella h-[4.5rem] w-[4.5rem] shrink-0 sm:h-24 sm:w-24">
+              <img src="/img/bella-hlidacka.png" alt="Bella, hypoteční hlídačka" width="240" height="240" />
+            </span>
+            <p class="text-[0.9375rem] font-medium leading-snug">
+              <span class="font-extrabold">Bella a Naira</span> hlídají, kolik vám banka opravdu půjčí.
+            </p>
+          </div>
+
           <ul class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-medium text-charcoal">
             <li class="flex items-center gap-2">
               <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-success">
@@ -170,7 +186,10 @@
 
             <!-- ---------- KROK 1 ---------- -->
             <section data-krok="1" aria-label="Krok 1: Co právě řešíte">
-              <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">Co právě řešíte?</h3>
+              <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+                <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">Co právě řešíte?</h3>
+                <div data-role="hlidacka-napoveda" class="hlidacka-napoveda flex w-full items-center gap-2.5 sm:w-auto sm:max-w-[13rem]"></div>
+              </div>
               <p class="mt-1.5 text-[0.9375rem] text-muted">Vyberte, co je vám nejblíž.</p>
 
               <div class="mt-5 flex flex-col gap-3">
@@ -221,7 +240,10 @@
 
             <!-- ---------- KROK 2 ---------- -->
             <section data-krok="2" hidden aria-label="Krok 2: Nemovitost">
-              <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">O jakou částku jde?</h3>
+              <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+                <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">O jakou částku jde?</h3>
+                <div data-role="hlidacka-napoveda" class="hlidacka-napoveda flex w-full items-center gap-2.5 sm:w-auto sm:max-w-[13rem]"></div>
+              </div>
               <p class="mt-1.5 text-[0.9375rem] text-muted">Stačí orientační odhad, upřesnit se to dá později.</p>
 
               <div class="mt-5 flex flex-col gap-5">
@@ -293,7 +315,10 @@
 
             <!-- ---------- KROK 3 ---------- -->
             <section data-krok="3" hidden aria-label="Krok 3: Vlastní zdroje">
-              <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">Kolik máte vlastních zdrojů?</h3>
+              <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+                <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">Kolik máte vlastních zdrojů?</h3>
+                <div data-role="hlidacka-napoveda" class="hlidacka-napoveda flex w-full items-center gap-2.5 sm:w-auto sm:max-w-[13rem]"></div>
+              </div>
               <p class="mt-1.5 text-[0.9375rem] text-muted">
                 Úspory, peníze z prodeje jiné nemovitosti, dar od rodiny. Když zatím nic, nechte nulu.
               </p>
@@ -328,7 +353,10 @@
 
             <!-- ---------- KROK 4 ---------- -->
             <section data-krok="4" hidden aria-label="Krok 4: Příjmy">
-              <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">Vaše příjmy</h3>
+              <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+                <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">Vaše příjmy</h3>
+                <div data-role="hlidacka-napoveda" class="hlidacka-napoveda flex w-full items-center gap-2.5 sm:w-auto sm:max-w-[13rem]"></div>
+              </div>
               <p class="mt-1.5 text-[0.9375rem] text-muted">Příjem je to hlavní, podle čeho banka limit počítá.</p>
 
               <div class="mt-5 flex flex-col gap-5">
@@ -421,7 +449,10 @@
 
             <!-- ---------- KROK 5 ---------- -->
             <section data-krok="5" hidden aria-label="Krok 5: Závazky a domácnost">
-              <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">Závazky a domácnost</h3>
+              <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+                <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">Závazky a domácnost</h3>
+                <div data-role="hlidacka-napoveda" class="hlidacka-napoveda flex w-full items-center gap-2.5 sm:w-auto sm:max-w-[13rem]"></div>
+              </div>
               <p class="mt-1.5 text-[0.9375rem] text-muted">Poslední údaje před výsledkem. Když nic nemáte, nechte nuly.</p>
 
               <div class="mt-5 flex flex-col gap-5">
@@ -512,19 +543,46 @@
                 Zpět
               </button>
 
-              <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">
-                Váš orientační hypoteční limit
-              </h3>
+              <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+                <h3 data-role="nadpis-kroku" tabindex="-1" class="text-xl font-extrabold md:text-2xl">
+                  Váš orientační hypoteční limit
+                </h3>
+                <div data-role="hlidacka-napoveda" class="hlidacka-napoveda flex w-full items-center gap-2.5 sm:w-auto sm:max-w-[13rem]"></div>
+              </div>
               <p class="mt-1.5 text-[0.9375rem] text-muted">Podle údajů, které jste právě zadali.</p>
 
-              <div class="mt-5 rounded-xl bg-primary-tint p-5 text-center">
-                <p
-                  data-role="vysledek-rozpeti"
-                  class="flex flex-wrap items-baseline justify-center gap-x-2 text-2xl font-extrabold leading-snug tracking-tight text-primary sm:text-3xl md:text-4xl"
-                >
-                  —
-                </p>
-                <p data-role="vysledek-popis" class="mt-2 text-sm text-charcoal"></p>
+              <p class="pruh-upozorneni mt-5 px-3 py-2" data-fade-in>
+                Upozornění: limity se u jednotlivých bank výrazně liší
+              </p>
+
+              <div class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-stretch">
+                <div class="rounded-xl bg-primary-tint p-5 text-center sm:flex-1">
+                  <p
+                    data-role="vysledek-rozpeti"
+                    class="flex flex-wrap items-baseline justify-center gap-x-2 text-2xl font-extrabold leading-snug tracking-tight text-primary sm:text-3xl md:text-4xl"
+                  >
+                    —
+                  </p>
+                  <p data-role="vysledek-popis" class="mt-2 text-sm text-charcoal"></p>
+                </div>
+
+                <div class="letakova-karticka flex items-center gap-3 px-4 py-3 sm:max-w-[15rem]" data-fade-in>
+                  <span class="pes-medailon pes-medailon--naira h-14 w-14 shrink-0">
+                    <img src="/img/naira-hlidacka.png" alt="Naira, hypoteční hlídačka" width="200" height="200" loading="lazy" />
+                  </span>
+                  <div class="min-w-0">
+                    <p class="text-sm font-medium leading-snug">
+                      Rozdíl mezi bankami může být ve statisících. Chcete znát svoje maximum?
+                    </p>
+                    <button
+                      type="button"
+                      data-akce="fokus-kontakt"
+                      class="btn btn-primary btn-sm mt-2.5 w-full justify-center"
+                    >
+                      Chci znát svoje maximum
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <div class="mt-6">
@@ -847,7 +905,7 @@
               -->
               <img
                 src="/img/hana-portret.jpg"
-                alt="Hana-Marie Stejná"
+                alt="Ing. et Ing. Hana-Marie Stejná, MSc."
                 width="900"
                 height="1600"
                 loading="lazy"
@@ -1082,14 +1140,33 @@
               class="w-full rounded-card object-cover shadow-card"
             />
             <div>
-              <p class="eyebrow">Mimo čísla a hypotéky</p>
+              <p class="eyebrow">Poradna BeLuca</p>
               <h2 class="mt-2 text-2xl font-extrabold md:text-3xl">
-                I při financování myslím na to, co je pro vás důležité.
+                Seznamte se: Bella &amp; Naira, hypoteční hlídačky
               </h2>
               <p class="mt-3 max-w-lg leading-relaxed text-charcoal">
-                Vlastní bydlení není jen o číslech a hypotéce. Je to místo, kde se budete cítit dobře vy i ti,
-                na kterých vám záleží.
+                Bella čenichá po nejlepších podmínkách, Naira hlídá, aby vám bylo doma dobře. Stejně jako ony
+                hlídám i já, aby vaše financování dávalo smysl – teď i za pár let.
               </p>
+              <div class="mt-4" data-fade-in>
+                <svg class="pecet-tlapka" width="52" height="52" viewBox="0 0 52 52" aria-hidden="true" focusable="false">
+                  <circle cx="26" cy="26" r="24" fill="var(--color-hlidacky-seal)" />
+                  <circle cx="26" cy="26" r="24" fill="url(#pecet-lesk)" opacity="0.35" />
+                  <g fill="var(--color-hlidacky-cream-light)">
+                    <ellipse cx="26" cy="31" rx="10" ry="8.5" />
+                    <ellipse cx="14.5" cy="19" rx="4.2" ry="5.4" transform="rotate(-18 14.5 19)" />
+                    <ellipse cx="22.5" cy="13.5" rx="4.4" ry="5.6" transform="rotate(-6 22.5 13.5)" />
+                    <ellipse cx="30.5" cy="13" rx="4.4" ry="5.6" transform="rotate(6 30.5 13)" />
+                    <ellipse cx="37.5" cy="18.5" rx="4.2" ry="5.4" transform="rotate(18 37.5 18.5)" />
+                  </g>
+                  <defs>
+                    <radialGradient id="pecet-lesk" cx="35%" cy="25%" r="70%">
+                      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55" />
+                      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                    </radialGradient>
+                  </defs>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
