@@ -184,6 +184,14 @@ function sestavHtml(lead: LeadPayload): string {
   `
 }
 
+// Google Apps Script webhook umí být při "studeném startu" výrazně pomalejší
+// než běžné API (naměřeno 2–3 s normálně, ale i přes 30 s při prvním volání
+// po delší době) — každé volání proto dostává vlastní timeout, ať jedno pomalé
+// volání nezablokuje odpověď klientovi ani nepřekročí limit serverless funkce.
+const TIMEOUT_EMAIL_MS = 8_000
+const TIMEOUT_WEBHOOK_MS = 25_000
+const TIMEOUT_CAPI_MS = 8_000
+
 async function posliEmail(lead: LeadPayload): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY
   const od = process.env.LEAD_EMAIL_FROM
@@ -205,6 +213,7 @@ async function posliEmail(lead: LeadPayload): Promise<boolean> {
         subject: `Nová poptávka: ${lead.jmeno} — ${NAZVY_ZAMERU[lead.kalkulacka.zamer] ?? lead.kalkulacka.zamer}`,
         html: sestavHtml(lead),
       }),
+      signal: AbortSignal.timeout(TIMEOUT_EMAIL_MS),
     })
     return odpoved.ok
   } catch (chyba) {
@@ -222,6 +231,7 @@ async function posliWebhook(lead: LeadPayload): Promise<boolean> {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(lead),
+      signal: AbortSignal.timeout(TIMEOUT_WEBHOOK_MS),
     })
     return odpoved.ok
   } catch (chyba) {
@@ -262,6 +272,7 @@ async function posliMetaCapi(lead: LeadPayload, req: VercelRequest): Promise<voi
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(telo),
+      signal: AbortSignal.timeout(TIMEOUT_CAPI_MS),
     })
   } catch (chyba) {
     console.error('Odeslání Meta CAPI eventu selhalo', chyba)
